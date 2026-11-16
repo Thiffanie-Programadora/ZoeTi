@@ -1,0 +1,64 @@
+:root {
+  --zoeti-mint: #D1E8E2;
+  --zoeti-mint-soft: #E5F3EF;
+  --zoeti-mint-deep: #B7DAD1;
+  --zoeti-bg: #F7FCFA;
+  --zoeti-plum: #4A2040;
+  --zoeti-plum-light: #68325B;
+  --zoeti-plum-dark: #32132B;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--zoeti-bg);
+  color: var(--zoeti-plum);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: var(--zoeti-bg);
+  color: var(--zoeti-plum);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .font-serif {
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+}
+
+/* Clases utilitarias corporativas garantizadas incluso sin conexión a CDN */
+.bg-zoeti-mint { background-color: #D1E8E2; }
+.bg-zoeti-mint-soft { background-color: #E5F3EF; }
+.bg-zoeti-bg { background-color: #F7FCFA; }
+.bg-zoeti-plum { background-color: #4A2040; }
+.bg-zoeti-plum-dark { background-color: #32132B; }
+.text-zoeti-plum { color: #4A2040; }
+.text-zoeti-plum-light { color: #68325B; }
+.border-zoeti-plum { border-color: #4A2040; }
+.border-zoeti-mint { border-color: #D1E8E2; }
+.shadow-zoeti { box-shadow: 0 14px 38px -10px rgba(74, 32, 64, 0.10); }
+.shadow-zoeti-lg { box-shadow: 0 22px 50px -12px rgba(74, 32, 64, 0.16); }
+
+/* Animación sutil para el botón flotante de WhatsApp */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+.whatsapp-pulse {
+  animation: pulse-ring 2.4s infinite;
+}
