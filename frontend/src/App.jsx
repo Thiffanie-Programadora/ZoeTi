@@ -8,7 +8,6 @@ import RagAssistantSection from './components/RagAssistantSection.jsx';
 import FaqSection from './components/FaqSection.jsx';
 import Footer from './components/footer.jsx';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton.jsx';
-import AiFloatingButton from './components/AiFloatingButton.jsx';
 import AdminLogin from './pages/AdminLogin.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import { getStoredAdmin, getAuthToken } from './services/api.js';
@@ -63,11 +62,8 @@ export default function App() {
 
       <Footer onNavigateView={setCurrentView} />
 
-      {/* Botón flotante de IA (GPT-4o + RAG Google Drive) */}
-      <AiFloatingButton />
-
-      {/* Botón flotante permanente de WhatsApp para cerrar ventas */}
-      <WhatsAppFloatingButton />
+      {/* Botón flotante permanente de WhatsApp para clientes (solo en vista pública) */}
+      {currentView === 'public' && <WhatsAppFloatingButton />}
     </div>
   );
 }

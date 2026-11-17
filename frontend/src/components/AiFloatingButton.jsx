@@ -170,12 +170,12 @@ export default function AiFloatingButton() {
 
   return (
     <>
-      {/* Botón Flotante de IA + Google Drive */}
+      {/* Botón Flotante de IA + Google Drive (Panel Administrativo) */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Abrir Asistente de IA conectado a Google Drive"
-        className="fixed bottom-24 right-6 z-50 flex items-center gap-3 px-4 py-3.5 rounded-full bg-[#D1E8E2] text-[#4A2040] border-2 border-[#4A2040] shadow-zoeti-lg hover:bg-[#4A2040] hover:text-[#F7FCFA] transition-all duration-300 group cursor-pointer"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3.5 rounded-full bg-[#D1E8E2] text-[#4A2040] border-2 border-[#4A2040] shadow-zoeti-lg hover:bg-[#4A2040] hover:text-[#F7FCFA] transition-all duration-300 group cursor-pointer"
       >
         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#4A2040] text-[#D1E8E2] group-hover:bg-[#D1E8E2] group-hover:text-[#4A2040] transition-colors font-serif font-bold text-base">
           ✨
@@ -192,7 +192,7 @@ export default function AiFloatingButton() {
 
       {/* Ventana Flotante del Asistente IA */}
       {isOpen && (
-        <div className="fixed bottom-28 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[420px] max-h-[calc(100vh-8rem)] h-[550px] bg-[#F7FCFA] rounded-3xl border-2 border-[#4A2040] shadow-zoeti-lg flex flex-col overflow-hidden">
+        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[420px] max-h-[calc(100vh-7rem)] h-[560px] bg-[#F7FCFA] rounded-3xl border-2 border-[#4A2040] shadow-zoeti-lg flex flex-col overflow-hidden">
           {/* Cabecera del Widget IA */}
           <div className="bg-[#4A2040] text-[#F7FCFA] px-4 py-3 flex items-center justify-between gap-2 shrink-0">
             <div className="flex items-center gap-2">

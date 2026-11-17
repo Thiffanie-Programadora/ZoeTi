@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Boton from '../components/boton.jsx';
 import RagAssistantSection from '../components/RagAssistantSection.jsx';
+import AiFloatingButton from '../components/AiFloatingButton.jsx';
 import { ORDER_STATUSES } from '../config/brand.js';
 import {
   fetchOrdersAdminApi,
@@ -652,6 +653,9 @@ export default function AdminDashboard({ admin, onLogout }) {
           </div>
         </div>
       )}
+
+      {/* Asistente Flotante de IA & Google Drive exclusivo para el Panel Administrativo */}
+      <AiFloatingButton />
     </section>
   );
 }

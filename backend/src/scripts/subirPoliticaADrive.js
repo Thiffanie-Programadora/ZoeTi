@@ -46,40 +46,23 @@ async function subirPolitica() {
   console.log('Folder check status:', folderCheck.status);
   const folderJson = await folderCheck.json();
   console.log('Folder check response:', JSON.stringify(folderJson, null, 2));
-  const filePath = path.resolve(__dirname, '../../../frontend/public/Politica_General_ZoeTi_Personal_Shopper.txt');
-  const content = fs.readFileSync(filePath, 'utf8');
-
-  const metadata = {
-    name: 'Politica_General_ZoeTi_Personal_Shopper.txt',
-    parents: [folderId],
-    mimeType: 'text/plain',
-  };
-
-  const boundary = 'foo_bar_baz_777';
-  const delimiter = '\r\n--' + boundary + '\r\n';
-  const closeDelim = '\r\n--' + boundary + '--';
-
-  const multipartRequestBody =
-    delimiter +
-    'Content-Type: application/json; charset=UTF-8\r\n\r\n' +
-    JSON.stringify(metadata) +
-    delimiter +
-    'Content-Type: text/plain; charset=UTF-8\r\n\r\n' +
-    content +
-    closeDelim;
-
-  const res = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true', {
+  // 2. Crear documento nativo de Google Docs (0 bytes quota)
+  const gdocRes = await fetch('https://www.googleapis.com/drive/v3/files?supportsAllDrives=true', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${access_token}`,
-      'Content-Type': `multipart/related; boundary=${boundary}`,
+      'Content-Type': 'application/json',
     },
-    body: multipartRequestBody,
+    body: JSON.stringify({
+      name: 'Politica_General_ZoeTi_Personal_Shopper',
+      mimeType: 'application/vnd.google-apps.document',
+      parents: [folderId],
+    }),
   });
 
-  console.log('Subida a Google Drive HTTP Status:', res.status);
-  const json = await res.json();
-  console.log('Resultado Google Drive:\n', JSON.stringify(json, null, 2));
+  console.log('CREATE GDOC STATUS:', gdocRes.status);
+  const gdocJson = await gdocRes.json();
+  console.log('CREATE GDOC RESULT:', JSON.stringify(gdocJson, null, 2));
 }
 
 subirPolitica().catch(console.error);
