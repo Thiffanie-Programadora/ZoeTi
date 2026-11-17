@@ -133,7 +133,7 @@ export const loginAdminApi = async (email, password) => {
     }
     localStorage.setItem(TOKEN_STORAGE_KEY, data.token);
     localStorage.setItem(ADMIN_USER_KEY, JSON.stringify(data.admin));
-    return { ...data, mode: 'postgresql' };
+    return { ...data, mode: 'mysql' };
   } catch (err) {
     // Fallback demostrativo si el servidor PostgreSQL no está corriendo en este instante
     if (err.name === 'TypeError' || err.message.includes('Failed to fetch')) {
@@ -195,7 +195,7 @@ export const fetchOrdersAdminApi = async (filters = {}) => {
     if (!response.ok) {
       throw new Error(data.message || 'Error al obtener pedidos');
     }
-    return { orders: data.orders, mode: 'postgresql' };
+    return { orders: data.orders, mode: 'mysql' };
   } catch {
     let orders = getLocalOrders();
     if (filters.status && filters.status !== 'Todos') {

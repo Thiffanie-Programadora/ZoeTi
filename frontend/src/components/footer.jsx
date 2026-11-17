@@ -40,10 +40,10 @@ export default function Footer({ onNavigateView }) {
               Rutas Oficiales
             </h3>
             <ul className="space-y-2 text-sm text-[#F7FCFA]/85">
-              <li>🇲🇽 México → Costa Rica</li>
-              <li>🇨🇴 Colombia → Costa Rica</li>
-              <li>🇵🇪 Perú → Costa Rica</li>
-              <li>🇵🇦 Panamá → Costa Rica</li>
+              <li>México → Costa Rica</li>
+              <li>Colombia → Costa Rica</li>
+              <li>Perú → Costa Rica</li>
+              <li>Panamá → Costa Rica</li>
             </ul>
           </div>
 
@@ -64,7 +64,14 @@ export default function Footer({ onNavigateView }) {
                   WhatsApp: {ZOETI_BRAND.whatsappDisplay}
                 </a>
               </li>
-              <li>✉️ {ZOETI_BRAND.email}</li>
+              <li>
+                <a
+                  href={`mailto:${ZOETI_BRAND.email}`}
+                  className="hover:text-[#D1E8E2] transition-colors"
+                >
+                  ✉️ {ZOETI_BRAND.email}
+                </a>
+              </li>
               <li className="pt-2">
                 <button
                   type="button"

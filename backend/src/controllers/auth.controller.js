@@ -1,6 +1,11 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { query } from '../config/db.js';
+import {
+  isMySQLConnected,
+  query,
+  readLocalDb,
+  writeLocalDb,
+} from '../config/db.js';
 
 /**
  * POST /api/auth/login
@@ -18,23 +23,30 @@ export const loginAdmin = async (req, res) => {
     }
 
     const normalizedEmail = String(email).trim().toLowerCase();
+    let admin = null;
 
-    const result = await query(
-      `SELECT id, name, email, password_hash, role, is_active
-       FROM admins
-       WHERE LOWER(email) = $1
-       LIMIT 1`,
-      [normalizedEmail]
-    );
+    if (isMySQLConnected) {
+      const rows = await query(
+        `SELECT id, name, email, password_hash, role, is_active
+         FROM admins
+         WHERE LOWER(email) = ?
+         LIMIT 1`,
+        [normalizedEmail]
+      );
+      admin = rows[0] || null;
+    } else {
+      const dbData = await readLocalDb();
+      admin =
+        dbData.admins.find((a) => a.email.toLowerCase() === normalizedEmail) ||
+        null;
+    }
 
-    if (result.rowCount === 0) {
+    if (!admin) {
       return res.status(401).json({
         ok: false,
         message: 'Credenciales inválidas.',
       });
     }
-
-    const admin = result.rows[0];
 
     if (!admin.is_active) {
       return res.status(403).json({
@@ -51,11 +63,18 @@ export const loginAdmin = async (req, res) => {
       });
     }
 
-    // Actualizar fecha de último acceso
-    await query(
-      `UPDATE admins SET last_login_at = CURRENT_TIMESTAMP WHERE id = $1`,
-      [admin.id]
-    );
+    if (isMySQLConnected) {
+      await query(`UPDATE admins SET last_login_at = NOW() WHERE id = ?`, [
+        admin.id,
+      ]);
+    } else {
+      const dbData = await readLocalDb();
+      const idx = dbData.admins.findIndex((a) => a.id === admin.id);
+      if (idx !== -1) {
+        dbData.admins[idx].last_login_at = new Date().toISOString();
+        writeLocalDb(dbData);
+      }
+    }
 
     const secret =
       process.env.JWT_SECRET ||
@@ -64,10 +83,14 @@ export const loginAdmin = async (req, res) => {
 
     const token = jwt.sign(
       {
+        sub: admin.id,
         id: admin.id,
+        empresaId: 1,
+        empresaNombre: 'ZoeTi Personal Shopper',
         email: admin.email,
         name: admin.name,
-        role: admin.role,
+        rol: admin.role || 'admin',
+        role: admin.role || 'admin',
       },
       secret,
       { expiresIn }
@@ -81,7 +104,7 @@ export const loginAdmin = async (req, res) => {
         id: admin.id,
         name: admin.name,
         email: admin.email,
-        role: admin.role,
+        role: admin.role || 'admin',
       },
     });
   } catch (error) {
@@ -99,31 +122,34 @@ export const loginAdmin = async (req, res) => {
  */
 export const getAdminProfile = async (req, res) => {
   try {
-    const result = await query(
-      `SELECT id, name, email, role, last_login_at, created_at
-       FROM admins
-       WHERE id = $1
-       LIMIT 1`,
-      [req.admin.id]
-    );
-
-    if (result.rowCount === 0) {
-      return res.status(404).json({
-        ok: false,
-        message: 'Administrador no encontrado.',
-      });
+    if (isMySQLConnected) {
+      const rows = await query(
+        `SELECT id, name, email, role, last_login_at, created_at
+         FROM admins
+         WHERE id = ?
+         LIMIT 1`,
+        [req.admin.id]
+      );
+      if (rows.length === 0) {
+        return res
+          .status(404)
+          .json({ ok: false, message: 'Administrador no encontrado.' });
+      }
+      return res.status(200).json({ ok: true, admin: rows[0] });
     }
 
-    return res.status(200).json({
-      ok: true,
-      admin: result.rows[0],
-    });
+    const dbData = await readLocalDb();
+    const admin = dbData.admins.find((a) => a.id === Number(req.admin.id));
+    if (!admin) {
+      return res
+        .status(404)
+        .json({ ok: false, message: 'Administrador no encontrado.' });
+    }
+    return res.status(200).json({ ok: true, admin });
   } catch (error) {
-    console.error('[AuthController.getAdminProfile] Error:', error.message);
     return res.status(500).json({
       ok: false,
       message: 'Error al obtener la sesión del administrador.',
     });
   }
 };
-

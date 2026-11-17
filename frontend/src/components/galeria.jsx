@@ -66,20 +66,15 @@ export default function GaleriaRutas() {
               >
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-5 mb-5 border-b border-[#D1E8E2]">
-                    <div className="flex items-center gap-3">
-                      <span className="text-4xl" aria-hidden="true">
-                        {route.flag}
-                      </span>
-                      <div>
-                        <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#4A2040] leading-tight">
-                          {route.country}{' '}
-                          <span className="text-[#68325B] font-normal">→</span>{' '}
-                          {route.destination}
-                        </h3>
-                        <p className="text-xs font-medium text-[#68325B]">
-                          {route.frequency}
-                        </p>
-                      </div>
+                    <div>
+                      <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#4A2040] leading-tight">
+                        {route.country}{' '}
+                        <span className="text-[#68325B] font-normal">→</span>{' '}
+                        {route.destination}
+                      </h3>
+                      <p className="text-xs font-medium text-[#68325B]">
+                        {route.frequency}
+                      </p>
                     </div>
 
                     <span className="px-3.5 py-1 rounded-full bg-[#4A2040] text-[#F7FCFA] text-xs font-semibold">

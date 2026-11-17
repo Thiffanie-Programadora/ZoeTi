@@ -61,7 +61,7 @@ export default function Hero() {
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#D1E8E2] border border-[#4A2040]/20 text-xs sm:text-sm font-medium text-[#4A2040]">
               <span>✈️ Importaciones Exclusivas</span>
               <span className="text-[#4A2040]/40">•</span>
-              <span>🇲🇽 🇨🇴 🇵🇪 🇵🇦 hacia Costa Rica 🇨🇷</span>
+              <span>México, Colombia, Perú y Panamá → Costa Rica</span>
             </div>
 
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#4A2040] leading-[1.08] tracking-tight">
@@ -104,6 +104,17 @@ export default function Hero() {
 
               <Boton
                 onClick={() => {
+                  const el = document.getElementById('asistente-rag');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                variant="mint"
+                size="lg"
+              >
+                <span>✨ Preguntar a la IA</span>
+              </Boton>
+
+              <Boton
+                onClick={() => {
                   const el = document.getElementById('como-funciona');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
@@ -129,7 +140,7 @@ export default function Hero() {
                   4 Rutas
                 </p>
                 <p className="text-xs sm:text-sm text-[#4A2040]/75">
-                  MX • CO • PE • PA → CR
+                  Directas hacia Costa Rica
                 </p>
               </div>
               <div>
@@ -222,10 +233,10 @@ export default function Hero() {
                     onChange={handleInputChange}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#D1E8E2] text-sm text-[#4A2040] focus:outline-none focus:border-[#4A2040]"
                   >
-                    <option value="Colombia">🇨🇴 Colombia → Costa Rica</option>
-                    <option value="México">🇲🇽 México → Costa Rica</option>
-                    <option value="Perú">🇵🇪 Perú → Costa Rica</option>
-                    <option value="Panamá">🇵🇦 Panamá → Costa Rica</option>
+                    <option value="Colombia">Colombia → Costa Rica</option>
+                    <option value="México">México → Costa Rica</option>
+                    <option value="Perú">Perú → Costa Rica</option>
+                    <option value="Panamá">Panamá → Costa Rica</option>
                   </select>
                 </div>
 

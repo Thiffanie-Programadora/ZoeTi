@@ -1,0 +1,17 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: zoeti_policybot_pgvector
+    environment:
+      POSTGRES_USER: policybot
+      POSTGRES_PASSWORD: policybot
+      POSTGRES_DB: policybot
+    ports:
+      - "5432:5432"
+    volumes:
+      - datos:/var/lib/postgresql/data
+      - ./backend/src/db/001_esquema.sql:/docker-entrypoint-initdb.d/001_esquema.sql:ro
+
+volumes:
+  datos:
+

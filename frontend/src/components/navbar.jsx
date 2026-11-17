@@ -85,6 +85,13 @@ export default function Navbar({
           </button>
           <button
             type="button"
+            onClick={() => handleSectionClick('asistente-rag')}
+            className="hover:text-[#4A2040] transition-colors font-semibold"
+          >
+            Asistente IA (RAG)
+          </button>
+          <button
+            type="button"
             onClick={() => handleSectionClick('faq')}
             className="hover:text-[#4A2040] transition-colors"
           >

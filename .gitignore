@@ -15,11 +15,14 @@ dist/
 dist-ssr/
 *.local
 
-# Environment variables
+# Environment variables & runtime data
 .env
 **/.env
 !.env.example
 !**/.env.example
+backend/database/zoeti_data.json
+credenciales/*.json
+backend/credenciales/*.json
 
 # Editor directories and files
 .vscode/*

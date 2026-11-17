@@ -2,8 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+import { initDatabase } from './config/db.js';
 import authRoutes from './routes/auth.routes.js';
 import ordersRoutes from './routes/orders.routes.js';
+import documentosRoutes from './routes/documentos.routes.js';
+import chatRoutes from './routes/chat.routes.js';
+import { iniciarJobSincronizacionDrive } from './jobs/sincronizar-drive.js';
 
 dotenv.config();
 
@@ -18,13 +22,14 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json({ limit: '1mb' }));
+app.use(express.json({ limit: '15mb' }));
 
 // Endpoint de salud del servidor
 app.get('/api/health', (_req, res) => {
   res.status(200).json({
     ok: true,
-    service: 'ZoeTi Personal Shopper API',
+    service: 'ZoeTi Personal Shopper & PolicyBot RAG API',
+    database: process.env.DB_NAME || 'zoeti',
     timestamp: new Date().toISOString(),
   });
 });
@@ -32,6 +37,8 @@ app.get('/api/health', (_req, res) => {
 // Rutas principales de la API
 app.use('/api/auth', authRoutes);
 app.use('/api/orders', ordersRoutes);
+app.use('/api', documentosRoutes);
+app.use('/api', chatRoutes);
 
 // Manejador de rutas no encontradas (404)
 app.use((_req, res) => {
@@ -41,9 +48,12 @@ app.use((_req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(
-    `🚀 ZoeTi Personal Shopper API ejecutándose en http://localhost:${PORT}`
-  );
+// Inicializar base de datos, cron de Google Drive y levantar el servidor
+iniciarJobSincronizacionDrive();
+initDatabase().finally(() => {
+  app.listen(PORT, () => {
+    console.log(
+      `🚀 ZoeTi & PolicyBot RAG API ejecutándose en http://localhost:${PORT}`
+    );
+  });
 });
-

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Boton from '../components/boton.jsx';
+import RagAssistantSection from '../components/RagAssistantSection.jsx';
 import { ORDER_STATUSES } from '../config/brand.js';
 import {
   fetchOrdersAdminApi,
@@ -128,8 +129,8 @@ export default function AdminDashboard({ admin, onLogout }) {
                 Panel de Control ZoeTi
               </span>
               <span className="px-3 py-1 rounded-full bg-[#E5F3EF] text-xs font-mono text-[#68325B]">
-                {connectionMode === 'postgresql'
-                  ? '🟢 Conectado a PostgreSQL API'
+                {connectionMode === 'mysql'
+                  ? '🟢 Conectado a MySQL (zoeti)'
                   : '🟢 Modo Persistente Local Activo'}
               </span>
             </div>
@@ -255,11 +256,11 @@ export default function AdminDashboard({ admin, onLogout }) {
               onChange={(e) => setCountryFilter(e.target.value)}
               className="w-full px-4 py-2.5 rounded-xl bg-[#F7FCFA] border border-[#D1E8E2] text-sm text-[#4A2040] focus:outline-none focus:border-[#4A2040]"
             >
-              <option value="Todos">Todos los países (MX, CO, PE, PA)</option>
-              <option value="México">🇲🇽 México</option>
-              <option value="Colombia">🇨🇴 Colombia</option>
-              <option value="Perú">🇵🇪 Perú</option>
-              <option value="Panamá">🇵🇦 Panamá</option>
+              <option value="Todos">Todos los países</option>
+              <option value="México">México → Costa Rica</option>
+              <option value="Colombia">Colombia → Costa Rica</option>
+              <option value="Perú">Perú → Costa Rica</option>
+              <option value="Panamá">Panamá → Costa Rica</option>
             </select>
           </div>
         </div>
@@ -316,7 +317,7 @@ export default function AdminDashboard({ admin, onLogout }) {
 
                       <td className="py-4 px-5 whitespace-nowrap">
                         <span className="px-3 py-1 rounded-full bg-[#E5F3EF] text-xs font-semibold text-[#4A2040]">
-                          {order.origin_country} → CR
+                          {order.origin_country} → Costa Rica
                         </span>
                       </td>
 
@@ -411,6 +412,11 @@ export default function AdminDashboard({ admin, onLogout }) {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Módulo SaaS Multiempresa con RAG, Google Drive, Roles y Planes */}
+      <div className="mt-12">
+        <RagAssistantSection />
       </div>
 
       {/* Modal para Editar Cotización, Estado y Notas */}

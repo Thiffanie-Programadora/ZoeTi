@@ -4,9 +4,11 @@ import Navbar from './components/navbar.jsx';
 import Hero from './components/Hero.jsx';
 import HowItWorks from './components/HowItWorks.jsx';
 import GaleriaRutas from './components/galeria.jsx';
+import RagAssistantSection from './components/RagAssistantSection.jsx';
 import FaqSection from './components/FaqSection.jsx';
 import Footer from './components/footer.jsx';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton.jsx';
+import AiFloatingButton from './components/AiFloatingButton.jsx';
 import AdminLogin from './pages/AdminLogin.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import { getStoredAdmin, getAuthToken } from './services/api.js';
@@ -46,6 +48,7 @@ export default function App() {
             <Hero />
             <HowItWorks />
             <GaleriaRutas />
+            <RagAssistantSection />
             <FaqSection />
           </>
         ) : adminUser ? (
@@ -59,6 +62,9 @@ export default function App() {
       </main>
 
       <Footer onNavigateView={setCurrentView} />
+
+      {/* Botón flotante de IA (GPT-4o + RAG Google Drive) */}
+      <AiFloatingButton />
 
       {/* Botón flotante permanente de WhatsApp para cerrar ventas */}
       <WhatsAppFloatingButton />
