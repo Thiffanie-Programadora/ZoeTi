@@ -385,7 +385,7 @@ export function useChat({
   const [mensajes, setMensajes] = useState([
     {
       rol: 'asistente',
-      texto: `¡Hola! Soy tu Asistente de Inteligencia Artificial conectado a Google Drive y a ${empresaActiva.nombre}. Pregúntame lo que necesites (código, fechas, cotizaciones o documentos de Drive). ¿En qué te ayudo?`,
+      texto: `¡Hola! Soy tu Asistente de Inteligencia Artificial de ${empresaActiva.nombre}. Pregúntame lo que necesites sobre políticas de la empresa, cotizaciones, tiempos de entrega o cualquier consulta. ¿En qué te ayudo hoy?`,
       fuentes: [],
       tokens: null,
     },
@@ -404,7 +404,7 @@ export function useChat({
     setMensajes([
       {
         rol: 'asistente',
-        texto: `¡Chat reiniciado! Soy tu Asistente de Inteligencia Artificial de ${empresaActiva.nombre} conectado a Google Drive. Pregúntame lo que quieras.`,
+        texto: `¡Chat reiniciado! Soy tu Asistente de Inteligencia Artificial de ${empresaActiva.nombre}. ¿En qué te puedo ayudar hoy?`,
         fuentes: [],
         tokens: null,
       },

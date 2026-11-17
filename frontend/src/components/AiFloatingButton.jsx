@@ -41,6 +41,35 @@ export default function AiFloatingButton() {
     `Drive: ${DRIVE_SERVICE_ACCOUNT.client_email}`
   );
 
+  // Sincronización automática y silenciosa en segundo plano
+  useEffect(() => {
+    sincronizarCarpetaDriveApi(carpetaId, tokenActual)
+      .then((resultado) => {
+        setDriveConectado(true);
+        const archivos = resultado.sincronizados || [];
+        if (archivos.length > 0) {
+          const nuevosDocs = archivos.map((arch, idx) => ({
+            id: arch.id || Date.now() + idx,
+            empresa_id: empresaActiva.id,
+            nombre: arch.nombre || 'Documento_Google_Drive.gdoc',
+            origen: 'drive',
+            estado: 'indexado',
+            fragmentos: 1,
+            drive_modificado: arch.modifiedTime || new Date().toISOString(),
+            texto: `Documento sincronizado desde Google Drive (${arch.nombre}): Políticas e inventario actualizados para ${empresaActiva.nombre}.`,
+          }));
+          setDocsRag((prev) => {
+            const nombresNuevos = new Set(nuevosDocs.map((d) => d.nombre));
+            const resto = prev.filter(
+              (d) => !(d.empresa_id === empresaActiva.id && nombresNuevos.has(d.nombre))
+            );
+            return [...nuevosDocs, ...resto];
+          });
+        }
+      })
+      .catch(() => {});
+  }, [carpetaId, tokenActual, empresaActiva.id]);
+
   const empresaActiva =
     INITIAL_TENANTS.find((t) => t.id === Number(empresaId)) ||
     INITIAL_TENANTS[0];
@@ -170,11 +199,11 @@ export default function AiFloatingButton() {
 
   return (
     <>
-      {/* Botón Flotante de IA + Google Drive (Panel Administrativo) */}
+      {/* Botón Flotante de IA (Panel Administrativo) */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Abrir Asistente de IA conectado a Google Drive"
+        aria-label="Abrir Asistente de IA"
         className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3.5 rounded-full bg-[#D1E8E2] text-[#4A2040] border-2 border-[#4A2040] shadow-zoeti-lg hover:bg-[#4A2040] hover:text-[#F7FCFA] transition-all duration-300 group cursor-pointer"
       >
         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#4A2040] text-[#D1E8E2] group-hover:bg-[#D1E8E2] group-hover:text-[#4A2040] transition-colors font-serif font-bold text-base">
@@ -182,10 +211,10 @@ export default function AiFloatingButton() {
         </span>
         <div className="pr-1 text-left">
           <span className="block text-[10px] uppercase tracking-wider font-bold opacity-85 leading-none">
-            {driveConectado ? '🟢 IA + Drive Activo' : 'Asistente IA'}
+            🟢 En línea
           </span>
           <span className="block text-xs sm:text-sm font-bold leading-tight">
-            {isOpen ? 'Cerrar Asistente IA' : 'Asistente IA & Drive'}
+            {isOpen ? 'Cerrar Asistente' : 'Asistente IA'}
           </span>
         </div>
       </button>
@@ -201,7 +230,7 @@ export default function AiFloatingButton() {
               </span>
               <div>
                 <h3 className="font-serif text-lg font-bold text-[#D1E8E2] leading-tight">
-                  Asistente IA & Drive
+                  Asistente IA
                 </h3>
                 <span className="text-[11px] text-[#F7FCFA]/80 block truncate max-w-[190px]">
                   {empresaActiva.nombre}
@@ -209,73 +238,13 @@ export default function AiFloatingButton() {
               </div>
             </div>
 
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={() => setVistaWidget('chat')}
-                className={`px-2.5 py-1 rounded-full text-xs font-bold transition-colors ${
-                  vistaWidget === 'chat'
-                    ? 'bg-white text-[#4A2040]'
-                    : 'bg-[#D1E8E2]/30 text-[#F7FCFA] hover:bg-[#D1E8E2]/50'
-                }`}
-              >
-                💬 Chat
-              </button>
-              <button
-                type="button"
-                onClick={() => setVistaWidget('drive')}
-                className={`px-2.5 py-1 rounded-full text-xs font-bold transition-colors ${
-                  vistaWidget === 'drive'
-                    ? 'bg-white text-[#4A2040]'
-                    : 'bg-[#D1E8E2]/30 text-[#F7FCFA] hover:bg-[#D1E8E2]/50'
-                }`}
-              >
-                📁 Drive
-              </button>
-              <button
-                type="button"
-                onClick={() => setVistaWidget('apikey')}
-                className={`px-2.5 py-1 rounded-full text-xs font-bold transition-colors ${
-                  vistaWidget === 'apikey'
-                    ? 'bg-white text-[#4A2040]'
-                    : 'bg-[#D1E8E2]/30 text-[#F7FCFA] hover:bg-[#D1E8E2]/50'
-                }`}
-                title="Configurar OpenAI API Key"
-              >
-                ⚙️ API
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsOpen(false)}
-                className="w-7 h-7 rounded-full bg-[#D1E8E2]/20 hover:bg-[#D1E8E2]/35 text-[#F7FCFA] flex items-center justify-center text-sm font-bold ml-1 cursor-pointer"
-                aria-label="Cerrar ventana de IA"
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-
-          {/* Barra superior de Empresa */}
-          <div className="px-4 py-2 bg-[#D1E8E2]/75 border-b border-[#D1E8E2] flex items-center justify-between gap-2 text-xs">
-            <select
-              value={empresaActiva.id}
-              onChange={(e) => handleCambiarTenant(e.target.value)}
-              className="px-2.5 py-1 rounded-lg bg-white border border-[#4A2040]/25 text-xs font-semibold text-[#4A2040] focus:outline-none"
-            >
-              {INITIAL_TENANTS.map((t) => (
-                <option key={t.id} value={t.id}>
-                  🏢 {t.nombre}
-                </option>
-              ))}
-            </select>
-
             <button
               type="button"
-              disabled={sincronizandoDrive}
-              onClick={handleConectarYSincronizarDrive}
-              className="px-2.5 py-1 rounded-full bg-[#4A2040] text-[#F7FCFA] font-semibold text-[11px] hover:bg-[#32132B] transition-colors disabled:opacity-50"
+              onClick={() => setIsOpen(false)}
+              className="w-7 h-7 rounded-full bg-[#D1E8E2]/20 hover:bg-[#D1E8E2]/35 text-[#F7FCFA] flex items-center justify-center text-sm font-bold cursor-pointer transition-colors"
+              aria-label="Cerrar ventana de IA"
             >
-              {sincronizandoDrive ? 'Sincronizando...' : '🔄 Sync Drive'}
+              ✕
             </button>
           </div>
 
@@ -335,6 +304,16 @@ export default function AiFloatingButton() {
                     className="px-3 py-2 rounded-full bg-[#D1E8E2] text-[#4A2040] text-xs font-bold"
                   >
                     Limpiar
+                  </button>
+                </div>
+
+                <div className="pt-2 text-center">
+                  <button
+                    type="button"
+                    onClick={() => setVistaWidget('chat')}
+                    className="text-xs text-[#4A2040] underline font-semibold hover:text-[#32132B]"
+                  >
+                    ← Volver al Chat
                   </button>
                 </div>
               </form>
@@ -401,6 +380,16 @@ export default function AiFloatingButton() {
                   ))}
                 </ul>
               </div>
+
+              <div className="pt-2 text-center">
+                <button
+                  type="button"
+                  onClick={() => setVistaWidget('chat')}
+                  className="text-xs text-[#4A2040] underline font-semibold hover:text-[#32132B]"
+                >
+                  ← Volver al Chat
+                </button>
+              </div>
             </div>
           )}
 
@@ -446,7 +435,7 @@ export default function AiFloatingButton() {
                     }
                     className="px-2.5 py-1 rounded-full bg-[#E5F3EF] text-[#4A2040] text-[11px] font-semibold hover:bg-[#D1E8E2] transition-colors"
                   >
-                    📄 Vacaciones Drive
+                    📄 Vacaciones y Políticas
                   </button>
                 </div>
                 <button

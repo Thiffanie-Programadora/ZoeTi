@@ -26,7 +26,7 @@ export default function Mensaje({ mensaje, isLastStreaming }) {
               esUsuario ? 'text-[#D1E8E2]' : 'text-[#68325B]'
             }`}
           >
-            {esUsuario ? 'Colaborador / Usuario' : 'Asistente IA (Claude RAG)'}
+            {esUsuario ? 'Administradora / Usuario' : 'Asistente IA ZoeTi'}
           </span>
           {mensaje.tokens && (
             <span className="text-[10px] font-mono text-[#4A2040]/60">
