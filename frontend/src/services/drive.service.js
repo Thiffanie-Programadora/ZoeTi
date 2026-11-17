@@ -3,7 +3,7 @@ const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
 export const DRIVE_SERVICE_ACCOUNT = {
   project_id: 'mi-sistema-drive',
   client_email: 'drive-service@mi-sistema-drive.iam.gserviceaccount.com',
-  default_folder_id: '1pMcv1iAk0wTSToo6Z13DUlR9djb5WCdG',
+  default_folder_id: '1pMcv1iAk0wTSToo6Z13DUlR9djbSWCdG',
 };
 
 /**

@@ -12,7 +12,7 @@ export const INITIAL_TENANTS = [
     max_documentos: 500,
     max_preguntas_mes: 10000,
     usadas_mes: 14,
-    drive_carpeta_id: '1pMcv1iAk0wTSToo6Z13DUlR9djb5WCdG',
+    drive_carpeta_id: '1pMcv1iAk0wTSToo6Z13DUlR9djbSWCdG',
   },
   {
     id: 2,

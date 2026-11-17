@@ -37,7 +37,15 @@ async function subirPolitica() {
   const { access_token } = await tokenResp.json();
   console.log('✅ Token OAuth con alcance de escritura obtenido.');
 
-  const folderId = '1pMcv1iAk0wTSToo6Z13DUlR9djb5WCdG';
+  const folderId = '1pMcv1iAk0wTSToo6Z13DUlR9djbSWCdG';
+  
+  // 1. Probar acceso a la carpeta
+  const folderCheck = await fetch(`https://www.googleapis.com/drive/v3/files/${folderId}?supportsAllDrives=true&fields=id,name,capabilities`, {
+    headers: { Authorization: `Bearer ${access_token}` }
+  });
+  console.log('Folder check status:', folderCheck.status);
+  const folderJson = await folderCheck.json();
+  console.log('Folder check response:', JSON.stringify(folderJson, null, 2));
   const filePath = path.resolve(__dirname, '../../../frontend/public/Politica_General_ZoeTi_Personal_Shopper.txt');
   const content = fs.readFileSync(filePath, 'utf8');
 
@@ -60,7 +68,7 @@ async function subirPolitica() {
     content +
     closeDelim;
 
-  const res = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
+  const res = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${access_token}`,
@@ -75,3 +83,4 @@ async function subirPolitica() {
 }
 
 subirPolitica().catch(console.error);
+
