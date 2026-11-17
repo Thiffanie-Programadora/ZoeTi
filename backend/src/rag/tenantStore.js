@@ -16,7 +16,7 @@ const EMPRESAS = [
     id: 1,
     nombre: 'ZoeTi Personal Shopper',
     plan_id: 'pro',
-    drive_carpeta_id: '1ZoeTiDriveFolderCR_2026',
+    drive_carpeta_id: '1pMcv1iAk0wTSToo6Z13DUlR9djb5WCdG',
     creada_en: new Date().toISOString(),
   },
   {
