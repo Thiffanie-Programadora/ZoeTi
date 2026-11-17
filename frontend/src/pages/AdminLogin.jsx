@@ -36,7 +36,7 @@ export default function AdminLogin({ onLoginSuccess, onBackToSite }) {
             className="w-20 h-20 rounded-full mx-auto object-cover zoeti-metallic-ring mb-4"
           />
           <span className="inline-block px-3 py-1 rounded-full bg-[#D1E8E2] text-[11px] font-semibold uppercase tracking-widest text-[#4A2040]">
-            Acceso Privado JWT
+            Acceso Administrativo
           </span>
           <h1 className="font-serif text-3xl font-bold text-[#4A2040] mt-2">
             Panel Administrativo

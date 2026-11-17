@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Boton from '../components/boton.jsx';
-import RagAssistantSection from '../components/RagAssistantSection.jsx';
 import AiFloatingButton from '../components/AiFloatingButton.jsx';
 import { ORDER_STATUSES } from '../config/brand.js';
 import {
@@ -129,10 +128,8 @@ export default function AdminDashboard({ admin, onLogout }) {
               <span className="px-3 py-1 rounded-full bg-[#D1E8E2] text-xs font-semibold text-[#4A2040]">
                 Panel de Control ZoeTi
               </span>
-              <span className="px-3 py-1 rounded-full bg-[#E5F3EF] text-xs font-mono text-[#68325B]">
-                {connectionMode === 'mysql'
-                  ? '🟢 Conectado a MySQL (zoeti)'
-                  : '🟢 Modo Persistente Local Activo'}
+              <span className="px-3 py-1 rounded-full bg-[#E5F3EF] text-xs font-semibold text-[#68325B]">
+                🟢 Sistema Operativo y Conectado
               </span>
             </div>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#4A2040] mt-2">
@@ -413,11 +410,6 @@ export default function AdminDashboard({ admin, onLogout }) {
             </div>
           )}
         </div>
-      </div>
-
-      {/* Módulo SaaS Multiempresa con RAG, Google Drive, Roles y Planes */}
-      <div className="mt-12">
-        <RagAssistantSection />
       </div>
 
       {/* Modal para Editar Cotización, Estado y Notas */}

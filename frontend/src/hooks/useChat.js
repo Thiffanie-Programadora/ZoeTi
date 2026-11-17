@@ -348,7 +348,7 @@ export function generarRespuestaInteligente(pregunta, empresaActiva, docsDeEstaE
     if (docsEncontrados.length > 0) {
       const fragmentos = docsEncontrados.map((d, i) => `> "${d.texto}" [${i + 1}]`).join('\n\n');
       return {
-        texto: `📄 **Información extraída de los documentos de ${empresaActiva.nombre}**:\n\n${fragmentos}\n\n*Fuente indexada desde Google Drive API v3.*`,
+        texto: `📄 **Información extraída de las políticas y documentos de ${empresaActiva.nombre}**:\n\n${fragmentos}\n\n*Información verificada de ZoeTi Personal Shopper.*`,
         fuentes: docsEncontrados.map((d, i) => ({ id: i + 1, nombre: d.nombre })),
       };
     }
@@ -364,14 +364,14 @@ export function generarRespuestaInteligente(pregunta, empresaActiva, docsDeEstaE
     qNorm.includes('buenas noches')
   ) {
     return {
-      texto: `👋 ¡Hola! Con gusto te ayudo. Soy el Asistente de Inteligencia Artificial de **${empresaActiva.nombre}**.\n\nPuedes hacerme cualquier consulta:\n• Preguntas generales o de conocimiento.\n• Solicitud de código (React, Python, SQL, etc.).\n• Información de envíos, cotizaciones o documentos de Google Drive.\n\n¿En qué te puedo colaborar?`,
+      texto: `👋 ¡Hola! Con gusto te ayudo. Soy el Asistente de Inteligencia Artificial de **${empresaActiva.nombre}**.\n\nPuedes hacerme cualquier consulta:\n• Cotizaciones de compras y tiendas internacionales.\n• Rutas de importación y tiempos de entrega.\n• Métodos de pago (SINPE Móvil, tarjetas, transferencias).\n• Políticas de garantía, compras y entregas puerta a puerta en Costa Rica.\n\n¿En qué te puedo colaborar hoy?`,
       fuentes: [],
     };
   }
 
   // 13. Respuesta Directa y Analítica (Sin plantillas evasivas)
   return {
-    texto: `💡 **Respuesta a "${qTrim}"**:\n\nEn relación a lo que consultas sobre **"${qTrim}"**:\n\n1. **Detalle Principal**: Este requerimiento se gestiona de forma directa evaluando los parámetros solicitados y aplicando la mejor práctica correspondiente.\n2. **Solución Aplicada**: Si se trata de un proceso de compra o cotización, recuerda que importamos desde México, Colombia, Perú y Panamá hacia Costa Rica con precio final por WhatsApp al **+506 6381-1395**.\n3. **Google Drive**: Si buscas consultar un documento específico de la empresa, puedes sincronizar la carpeta desde la pestaña **📁 Drive** o hacerme una consulta sobre vacaciones, teletrabajo o políticas de envío.`,
+    texto: `💡 **Respuesta a "${qTrim}"**:\n\nEn relación a lo que consultas sobre **"${qTrim}"**:\n\n1. **Detalle Principal**: Este requerimiento se gestiona de forma directa con nuestro equipo de Personal Shopper.\n2. **Cotizaciones y Envíos**: Recuerda que importamos desde México, Colombia, Perú y Panamá hacia Costa Rica con precio final garantizado por WhatsApp al **+506 6381-1395**.\n3. **Políticas y Consultas**: También puedes consultarme sobre tiempos de tránsito, políticas de garantía, vacaciones del personal o entregas puerta a puerta.`,
     fuentes: [],
   };
 }

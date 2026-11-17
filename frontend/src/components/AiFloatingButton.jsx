@@ -401,19 +401,21 @@ export default function AiFloatingButton() {
                 <div className="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap text-xs">
                   <button
                     type="button"
-                    onClick={() => enviar('¿Cuándo es navidad?')}
+                    onClick={() =>
+                      enviar('¿Cómo se cotiza un pedido y qué incluye el precio final?')
+                    }
                     className="px-2.5 py-1 rounded-full bg-[#E5F3EF] text-[#4A2040] text-[11px] font-semibold hover:bg-[#D1E8E2] transition-colors"
                   >
-                    🎄 ¿Cuándo es navidad?
+                    🛍️ ¿Cómo Cotizar?
                   </button>
                   <button
                     type="button"
                     onClick={() =>
-                      enviar('Implementa una función en Python para calcular la serie de Fibonacci')
+                      enviar('¿Cuáles son las tiendas más recomendadas en México, Colombia, Perú y Panamá?')
                     }
                     className="px-2.5 py-1 rounded-full bg-[#E5F3EF] text-[#4A2040] text-[11px] font-semibold hover:bg-[#D1E8E2] transition-colors"
                   >
-                    💻 Código Python
+                    🏬 Tiendas Recomendadas
                   </button>
                   <button
                     type="button"
@@ -424,18 +426,18 @@ export default function AiFloatingButton() {
                     }
                     className="px-2.5 py-1 rounded-full bg-[#E5F3EF] text-[#4A2040] text-[11px] font-semibold hover:bg-[#D1E8E2] transition-colors"
                   >
-                    ✈️ Rutas ZoeTi
+                    ✈️ Tiempos de Entrega
                   </button>
                   <button
                     type="button"
                     onClick={() =>
                       enviar(
-                        '¿Cuántos días de vacaciones tienen según los documentos de la empresa?'
+                        '¿Cuáles son las políticas de garantía, pagos y devoluciones de ZoeTi?'
                       )
                     }
                     className="px-2.5 py-1 rounded-full bg-[#E5F3EF] text-[#4A2040] text-[11px] font-semibold hover:bg-[#D1E8E2] transition-colors"
                   >
-                    📄 Vacaciones y Políticas
+                    📄 Políticas y Garantía
                   </button>
                 </div>
                 <button

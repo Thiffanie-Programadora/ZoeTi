@@ -4,7 +4,6 @@ import Navbar from './components/navbar.jsx';
 import Hero from './components/Hero.jsx';
 import HowItWorks from './components/HowItWorks.jsx';
 import GaleriaRutas from './components/galeria.jsx';
-import RagAssistantSection from './components/RagAssistantSection.jsx';
 import FaqSection from './components/FaqSection.jsx';
 import Footer from './components/footer.jsx';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton.jsx';
@@ -47,7 +46,6 @@ export default function App() {
             <Hero />
             <HowItWorks />
             <GaleriaRutas />
-            <RagAssistantSection />
             <FaqSection />
           </>
         ) : adminUser ? (

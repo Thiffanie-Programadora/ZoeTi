@@ -28,11 +28,6 @@ export default function Mensaje({ mensaje, isLastStreaming }) {
           >
             {esUsuario ? 'Administradora / Usuario' : 'Asistente IA ZoeTi'}
           </span>
-          {mensaje.tokens && (
-            <span className="text-[10px] font-mono text-[#4A2040]/60">
-              in:{mensaje.tokens.input_tokens} • out:{mensaje.tokens.output_tokens} tokens
-            </span>
-          )}
         </div>
 
         <p className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap">

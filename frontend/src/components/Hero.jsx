@@ -104,13 +104,13 @@ export default function Hero() {
 
               <Boton
                 onClick={() => {
-                  const el = document.getElementById('asistente-rag');
+                  const el = document.getElementById('rastreo');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
                 variant="mint"
                 size="lg"
               >
-                <span>✨ Preguntar a la IA</span>
+                <span>🔍 Rastrear Pedido</span>
               </Boton>
 
               <Boton
