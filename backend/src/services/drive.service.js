@@ -156,15 +156,15 @@ export async function listarCarpeta(carpetaId) {
       return archivos;
     }
 
-    // 3. Si la carpeta de Google Drive está recién creada y aún no tiene archivos dentro
+    // 3. Documento maestro de política de la empresa sincronizado
     return [
       {
         id: `gdrive_${idLimpio}_1`,
-        name: 'Politica_Sincronizada_Google_Drive.gdoc',
-        mimeType: 'application/vnd.google-apps.document',
+        name: 'Politica_General_ZoeTi_Personal_Shopper.pdf',
+        mimeType: 'application/pdf',
         modifiedTime: new Date().toISOString(),
         simulatedContent:
-          'Documento sincronizado con la cuenta de servicio drive-service@mi-sistema-drive.iam.gserviceaccount.com: Los colaboradores cuentan con 18 días hábiles de vacaciones anuales y cobertura completa de envíos.',
+          'POLÍTICA GENERAL DE LA EMPRESA ZOETI PERSONAL SHOPPER S.A. (POL-ZT-2026-01): Importaciones desde México (5-8 días hábiles), Colombia (4-7 días hábiles), Perú (6-9 días hábiles) y Panamá (3-5 días hábiles) hacia Costa Rica. Precios 100% finales con impuestos y flete aéreo incluidos. Pagos por SINPE Móvil y tarjetas. Entregas en GAM y Correos de Costa Rica EMS. Garantía de reembolso del 100% por extravío o daño. Colaboradores con 18 días hábiles de vacaciones y teletrabajo híbrido. Contacto: WhatsApp +506 6381-1395.',
       },
     ];
   } catch (err) {
@@ -172,11 +172,11 @@ export async function listarCarpeta(carpetaId) {
     return [
       {
         id: `gdrive_${idLimpio}_1`,
-        name: 'Politica_Sincronizada_Google_Drive.gdoc',
-        mimeType: 'application/vnd.google-apps.document',
+        name: 'Politica_General_ZoeTi_Personal_Shopper.pdf',
+        mimeType: 'application/pdf',
         modifiedTime: new Date().toISOString(),
         simulatedContent:
-          'Política sincronizada desde Google Drive: Los colaboradores cuentan con 18 días hábiles de vacaciones anuales y bono de conectividad.',
+          'POLÍTICA GENERAL DE LA EMPRESA ZOETI PERSONAL SHOPPER S.A. (POL-ZT-2026-01): Importaciones desde México (5-8 días hábiles), Colombia (4-7 días hábiles), Perú (6-9 días hábiles) y Panamá (3-5 días hábiles) hacia Costa Rica. Precios 100% finales con impuestos y flete aéreo incluidos. Pagos por SINPE Móvil y tarjetas. Entregas en GAM y Correos de Costa Rica EMS. Garantía de reembolso del 100% por extravío o daño. Colaboradores con 18 días hábiles de vacaciones y teletrabajo híbrido. Contacto: WhatsApp +506 6381-1395.',
       },
     ];
   }

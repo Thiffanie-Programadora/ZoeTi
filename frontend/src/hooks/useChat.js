@@ -36,6 +36,17 @@ export const INITIAL_TENANTS = [
 
 export const INITIAL_RAG_DOCS = [
   {
+    id: 100,
+    empresa_id: 1,
+    nombre: 'Politica_General_ZoeTi_Personal_Shopper.pdf',
+    origen: 'drive',
+    estado: 'indexado',
+    fragmentos: 4,
+    drive_modificado: '2026-11-17T09:30:00Z',
+    texto:
+      'POLÍTICA GENERAL DE LA EMPRESA ZOETI PERSONAL SHOPPER S.A. (POL-ZT-2026-01): 1) Alcance: Compras asistidas e importaciones desde México (5-8 días hábiles), Colombia (4-7 días hábiles), Perú (6-9 días hábiles) y Panamá (3-5 días hábiles) hacia Costa Rica. 2) Precio Final: Toda cotización vía WhatsApp (+506 6381-1395) es 100% definitiva e incluye producto, flete aéreo, trámites aduanales e impuestos de desalmacenaje en Costa Rica (13% IVA + aranceles). Sin cobros sorpresa. 3) Pagos: SINPE Móvil, transferencia bancaria (colones/dólares) y tarjeta. 4) Entregas: Puerta a puerta en el GAM con mensajería privada y Correos de Costa Rica EMS al resto del país. 5) Garantías y Reembolsos: Inspección previa en origen, compras en tiendas oficiales, y reembolso del 100% o reposición inmediata en caso de extravío o daño en tránsito. 6) Políticas Laborales: 18 días hábiles de vacaciones remuneradas anuales y teletrabajo híbrido. Contacto: administracionzoeTi@gmail.com.',
+  },
+  {
     id: 101,
     empresa_id: 1,
     nombre: 'Politica_Importaciones_y_Rutas_ZoeTi.pdf',
@@ -174,12 +185,34 @@ export function generarRespuestaInteligente(pregunta, empresaActiva, docsDeEstaE
     qNorm.includes('carpeta') ||
     qNorm.includes('servicio drive') ||
     qNorm.includes('drive service') ||
-    qNorm.includes('documento')
+    (qNorm.includes('documento') && !qNorm.includes('politica'))
   ) {
     const listaNombres = docsDeEstaEmpresa.map((d, i) => `• [${i + 1}] **${d.nombre}**`).join('\n');
     return {
-      texto: `📁 **Estado del Servicio Google Drive (\`drive.service.js\`)**:\n\n• **Cuenta de Servicio Conectada**: \`drive-service@mi-sistema-drive.iam.gserviceaccount.com\`\n• **Carpeta sincronizada**: \`${empresaActiva.drive_carpeta_id || '1ZoeTiDriveFolderCR_2026'}\`\n• **Empresa Activa**: **${empresaActiva.nombre}**\n\n📄 **Documentos indexados en memoria**:\n${listaNombres || '• Ningún documento indexado actualmente.'}\n\n*Puedes preguntarme por las políticas de importaciones, rutas, métodos de pago o beneficios laborales de los documentos anteriores.*`,
+      texto: `📁 **Estado del Servicio Google Drive (\`drive.service.js\`)**:\n\n• **Cuenta de Servicio Conectada**: \`drive-service@mi-sistema-drive.iam.gserviceaccount.com\`\n• **Carpeta sincronizada**: \`${empresaActiva.drive_carpeta_id || '1ZoeTiDriveFolderCR_2026'}\`\n• **Empresa Activa**: **${empresaActiva.nombre}**\n\n📄 **Documentos indexados en Google Drive**:\n${listaNombres || '• Ningún documento indexado actualmente.'}\n\n*Puedes preguntarme por las políticas de la empresa, garantías, tiempos de entrega o métodos de pago.*`,
       fuentes: docsDeEstaEmpresa.map((d, i) => ({ id: i + 1, nombre: d.nombre })),
+    };
+  }
+
+  // 4.1. Documento de Política de la Empresa
+  if (
+    qNorm.includes('politica') ||
+    qNorm.includes('politicas') ||
+    qNorm.includes('reglamento') ||
+    qNorm.includes('garantia') ||
+    qNorm.includes('devolucion') ||
+    qNorm.includes('reembolso')
+  ) {
+    return {
+      texto: `📄 **Documento de Política General de la Empresa: ZoeTi Personal Shopper S.A.** *(POL-ZT-2026-01)* [1]:\n\n` +
+        `• **1. Importaciones y Rutas**: Compras asistidas desde **México** (5 a 8 días hábiles), **Colombia** (4 a 7 días hábiles), **Perú** (6 a 9 días hábiles) y **Panamá** (3 a 5 días hábiles) hacia Costa Rica.\n` +
+        `• **2. Política de Precio Final**: Las cotizaciones emitidas por WhatsApp (**+506 6381-1395**) son 100% definitivas. Incluyen el costo del artículo, flete internacional, desaduanaje e impuestos en Costa Rica (13% IVA + aranceles). Cero cobros sorpresa.\n` +
+        `• **3. Métodos de Pago**: Aceptamos **SINPE Móvil**, transferencias bancarias en colones/dólares y tarjeta de crédito o débito.\n` +
+        `• **4. Entregas en Costa Rica**: Entregas puerta a puerta en el GAM con mensajería privada, y envíos por Correos de Costa Rica EMS al resto del país.\n` +
+        `• **5. Garantías y Reembolsos**: Compras 100% originales en tiendas oficiales extranjeras. Si el paquete se extravía o sufre daño en el trayecto internacional, ZoeTi garantiza el **reembolso total del 100%** de lo pagado o la reposición sin costo.\n` +
+        `• **6. Beneficios Laborales**: Colaboradores gozan de **18 días hábiles de vacaciones remuneradas** anuales y teletrabajo híbrido.\n\n` +
+        `*Documento sincronizado en Google Drive:* \`Politica_General_ZoeTi_Personal_Shopper.pdf\` / \`Politica_General_ZoeTi_Personal_Shopper.txt\``,
+      fuentes: [{ id: 1, nombre: 'Politica_General_ZoeTi_Personal_Shopper.pdf' }],
     };
   }
 

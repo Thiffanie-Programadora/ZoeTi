@@ -38,6 +38,17 @@ const EMPRESAS = [
 const DOCUMENTOS_INICIALES = [
   // Empresa 1: ZoeTi Personal Shopper
   {
+    id: 100,
+    empresa_id: 1,
+    nombre: 'Politica_General_ZoeTi_Personal_Shopper.pdf',
+    origen: 'drive',
+    drive_file_id: '1ZoeTiMasterDocDrive_2026',
+    drive_modificado: '2026-11-17T09:30:00Z',
+    estado: 'indexado',
+    contenido:
+      'POLÍTICA GENERAL DE LA EMPRESA ZOETI PERSONAL SHOPPER S.A. (POL-ZT-2026-01): Importaciones desde México (5-8 días hábiles), Colombia (4-7 días hábiles), Perú (6-9 días hábiles) y Panamá (3-5 días hábiles) hacia Costa Rica. Precios 100% finales con impuestos y flete aéreo incluidos. Pagos por SINPE Móvil y tarjetas. Entregas en GAM y Correos de Costa Rica EMS. Garantía de reembolso del 100% por extravío o daño. Colaboradores con 18 días hábiles de vacaciones y teletrabajo híbrido. Contacto: WhatsApp +506 6381-1395.',
+  },
+  {
     id: 101,
     empresa_id: 1,
     nombre: 'Politica_Importaciones_y_Rutas_ZoeTi.pdf',
