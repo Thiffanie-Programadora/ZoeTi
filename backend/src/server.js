@@ -7,6 +7,7 @@ import authRoutes from './routes/auth.routes.js';
 import ordersRoutes from './routes/orders.routes.js';
 import documentosRoutes from './routes/documentos.routes.js';
 import chatRoutes from './routes/chat.routes.js';
+import driveRoutes from './routes/drive.routes.js';
 import { iniciarJobSincronizacionDrive } from './jobs/sincronizar-drive.js';
 
 dotenv.config();
@@ -39,6 +40,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api', documentosRoutes);
 app.use('/api', chatRoutes);
+app.use('/api/drive', driveRoutes);
 
 // Manejador de rutas no encontradas (404)
 app.use((_req, res) => {
