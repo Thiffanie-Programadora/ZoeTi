@@ -192,18 +192,18 @@ export default function AiFloatingButton() {
 
       {/* Ventana Flotante del Asistente IA */}
       {isOpen && (
-        <div className="fixed bottom-40 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[440px] max-h-[82vh] bg-[#F7FCFA] rounded-3xl border-2 border-[#4A2040] shadow-zoeti-lg flex flex-col overflow-hidden">
+        <div className="fixed bottom-28 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[420px] max-h-[calc(100vh-8rem)] h-[550px] bg-[#F7FCFA] rounded-3xl border-2 border-[#4A2040] shadow-zoeti-lg flex flex-col overflow-hidden">
           {/* Cabecera del Widget IA */}
-          <div className="bg-[#4A2040] text-[#F7FCFA] px-5 py-4 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2.5">
-              <span className="w-9 h-9 rounded-full bg-[#D1E8E2] text-[#4A2040] flex items-center justify-center text-base font-bold">
+          <div className="bg-[#4A2040] text-[#F7FCFA] px-4 py-3 flex items-center justify-between gap-2 shrink-0">
+            <div className="flex items-center gap-2">
+              <span className="w-8 h-8 rounded-full bg-[#D1E8E2] text-[#4A2040] flex items-center justify-center text-sm font-bold">
                 ✨
               </span>
               <div>
-                <h3 className="font-serif text-xl font-bold text-[#D1E8E2] leading-none">
-                  Asistente IA & Google Drive
+                <h3 className="font-serif text-lg font-bold text-[#D1E8E2] leading-tight">
+                  Asistente IA & Drive
                 </h3>
-                <span className="text-[11px] text-[#F7FCFA]/80 block truncate max-w-[210px]">
+                <span className="text-[11px] text-[#F7FCFA]/80 block truncate max-w-[190px]">
                   {empresaActiva.nombre}
                 </span>
               </div>
@@ -247,7 +247,7 @@ export default function AiFloatingButton() {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="w-7 h-7 rounded-full bg-[#D1E8E2]/20 hover:bg-[#D1E8E2]/35 text-[#F7FCFA] flex items-center justify-center text-sm font-bold ml-1"
+                className="w-7 h-7 rounded-full bg-[#D1E8E2]/20 hover:bg-[#D1E8E2]/35 text-[#F7FCFA] flex items-center justify-center text-sm font-bold ml-1 cursor-pointer"
                 aria-label="Cerrar ventana de IA"
               >
                 ✕
@@ -459,8 +459,8 @@ export default function AiFloatingButton() {
                 </button>
               </div>
 
-              {/* Mensajes */}
-              <div className="p-4 flex-1 overflow-y-auto space-y-2 max-h-72 bg-[#F7FCFA]">
+              {/* Mensajes con scroll fluido y altura adaptable */}
+              <div className="p-4 flex-1 overflow-y-auto space-y-2 bg-[#F7FCFA] min-h-0">
                 {errorHttp && (
                   <div className="p-3 rounded-xl bg-red-50 border border-red-300 text-xs text-red-900 flex flex-col gap-1">
                     <span>{errorHttp.mensaje}</span>
